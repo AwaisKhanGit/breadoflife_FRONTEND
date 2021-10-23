@@ -325,6 +325,8 @@ export default {
           })
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
+          this.$refs.formSignup.reset();
+          this.$router.push({name: 'users'})
       } else {
         alert("please fill out all the information");
       }
