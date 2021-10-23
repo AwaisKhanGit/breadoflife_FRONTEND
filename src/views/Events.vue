@@ -107,6 +107,7 @@
 
 <script>
 // import { END_POINTS, createApiEndPoints } from "@/api.js";
+import { BASE_URL } from '@/api.js'
 import axios from "axios";
 
 export default {
@@ -170,7 +171,7 @@ export default {
   methods: {
     initialize() {
       axios
-        .get("http://localhost:3001/events")
+        .get(`${BASE_URL}/events`)
         .then((response) => {
           this.events = response.data;
           this.events.forEach((ev) => {
@@ -195,7 +196,7 @@ export default {
     deleteItemConfirm() {
       console.log("id : " + this.editedItem._id);
       axios
-        .delete(`http://localhost:3001/events/${this.editedItem._id}`)
+        .delete(`${BASE_URL}/events/${this.editedItem._id}`)
         .then((response) => {
           this.events.splice(this.editedIndex, 1);
           console.log(response);
@@ -223,7 +224,7 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         axios
-          .patch(`http://localhost:3001/events/${this.editedItem._id}`, {
+          .patch(`${BASE_URL}/events/${this.editedItem._id}`, {
             type: this.editedItem.type,
             location: this.editedItem.location,
             date: new Date(this.editedItem.date),
@@ -235,7 +236,7 @@ export default {
           .catch((err) => console.log(err));
       } else {
         axios
-          .post(`http://localhost:3001/events`, {
+          .post(`${BASE_URL}/events`, {
             type: this.editedItem.type,
             location: this.editedItem.location,
             date: new Date(this.editedItem.date),
