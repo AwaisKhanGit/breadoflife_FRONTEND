@@ -82,6 +82,9 @@ export default {
     async getUsers() {
       const response = await axios.get(`${BASE_URL}users/getusers`);
       this.users = response.data;
+      this.users.forEach(user => {
+        user.date = user.date.split('T')[0]
+      })
     },
 
     async getEventById() {
