@@ -65,12 +65,20 @@ export default {
           value: "firstName",
           sortable: false,
         },
-        { text: "lastname", value: "lastName", sortable: false, },
+        { text: "lastname", value: "lastName", sortable: false },
         // { text: "zip code", value: "zipCode" },
-        { text: "Phone Number", value: "phoneNumber", sortable: false, },
-        { text: "type", value: "type", sortable: false, },
-        { text: "location", value: "location", sortable: false, },
-        { text: "date", value: "date", sortable: false, },
+        { text: "Phone Number", value: "phoneNumber", sortable: false },
+        { text: "type", value: "type", sortable: false },
+        { text: "location", value: "location", sortable: false },
+        {
+          text: "date",
+          value: "date",
+          sortable: false,
+          filter: (value) => {
+            if (!this.date) return true;
+            return value === this.date;
+          },
+        },
       ],
       users: [],
       eventId: "",
@@ -82,9 +90,9 @@ export default {
     async getUsers() {
       const response = await axios.get(`${BASE_URL}users/getusers`);
       this.users = response.data;
-      this.users.forEach(user => {
-        user.date = user.date.split('T')[0]
-      })
+      this.users.forEach((user) => {
+        user.date = user.date.split("T")[0];
+      });
     },
 
     async getEventById() {
@@ -93,10 +101,17 @@ export default {
   },
 
   watch: {
-      date() {
-          console.log(this.date);
-      }
-  }
+    date() {
+      // const backupUsers = this.users
+      // this.users.filter((user) => {
+      //   if (user.date === this.date) {
+      //     return user;
+      //   }
+      //   return user;
+      // });
+      console.log(this.date);
+    },
+  },
 };
 </script>
 
